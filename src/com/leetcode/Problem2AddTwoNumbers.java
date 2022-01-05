@@ -19,7 +19,7 @@ public class Problem2AddTwoNumbers {
         a.next = new ListNode(4);
         a.next.next = new ListNode(3);
 
-        // 568
+        // 564
         ListNode b = new ListNode(5);
         b.next = new ListNode(6);
         b.next.next = new ListNode(4);
@@ -41,33 +41,22 @@ public class Problem2AddTwoNumbers {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode result = new ListNode();
         ListNode tempResult = result;
-        int a = 0;
-        int b = 0;
-        int carry = 0;
-        do {
-            if(l1 != null)
-                a = l1.val;
-            else
-                a = 0;
+        int sum = ((l1 == null) ? 0 : l1.val) + ((l2 == null) ? 0 : l2.val);
+        int carry = sum / 10;
+        tempResult.val = sum % 10;
+        while ((l1 != null && l1.next != null) || (l2 != null && l2.next != null) || carry > 0) {
+            tempResult.next = new ListNode();
+            tempResult = tempResult.next;
 
-            if(l2 != null)
-                b = l2.val;
-            else
-                b = 0;
+            // Move to next node if available
+            l1 = l1 == null ? null : l1.next;
+            l2 = l2 == null ? null : l2.next;
 
-            int sum = a + b + carry;
+            // Add values in both nodes, whichever is available, and carry
+            sum = ((l1 == null) ? 0 : l1.val) + ((l2 == null) ? 0 : l2.val) + carry;
             carry = sum / 10;
-            sum = sum % 10;
-            tempResult.val = sum;
-            if(l1 != null)
-                l1 = l1.next;
-            if(l2 != null)
-                l2 = l2.next;
-            if(l1 != null || l2 != null || carry > 0) {
-                tempResult.next = new ListNode();
-                tempResult = tempResult.next;
-            }
-        } while (l1 != null || l2 != null || carry > 0);
+            tempResult.val = sum % 10;
+        }
 
         return result;
     }
