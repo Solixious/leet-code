@@ -1,5 +1,8 @@
 package com.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
  *
@@ -25,12 +28,12 @@ public class Problem1TwoSum {
     }
 
     public int[] twoSum(int[] numbers, int target) {
-        for(int i = 0; i < numbers.length - 1; i++) {
-            for(int j = i + 1; j < numbers.length; j++) {
-                if(numbers[i] + numbers[j] == target) {
-                    return new int[]{i, j};
-                }
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i < numbers.length; i++) {
+            if(map.containsKey(target - numbers[i])) {
+                return new int[]{i, map.get(target - numbers[i])};
             }
+            map.put(numbers[i], i);
         }
         return new int[]{0, 0};
     }
