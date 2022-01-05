@@ -15,23 +15,20 @@ public class Problem3LongestSubstringWithoutRepeatingCharacters {
         System.out.println(repeatingCharacters.lengthOfLongestSubstring("abcabcbb"));
         System.out.println(repeatingCharacters.lengthOfLongestSubstring("bbbbb"));
         System.out.println(repeatingCharacters.lengthOfLongestSubstring("pwwkew"));
+        System.out.println(repeatingCharacters.lengthOfLongestSubstring("abba"));
     }
 
     public int lengthOfLongestSubstring(String s) {
         int longestSubstringLength = 0;
         char[] ch = s.toCharArray();
-        for(int i = 0; i < ch.length; i++) {
-            Map<Character, Boolean> map = new HashMap<>();
-            for(int j = i; j < ch.length; j++) {
-                if(map.containsKey(ch[j])) {
-                    break;
-                } else if((j - i) + 1 > longestSubstringLength) {
-                    longestSubstringLength = (j - i) + 1;
-                }
-                map.put(ch[j], true);
+        Map<Character, Integer> map = new HashMap<>();
+        for(int end = 0, start = 0; end < ch.length; end++) {
+            if(map.containsKey(ch[end])) {
+                start = Math.max(start, map.get(ch[end]) + 1);
             }
+            longestSubstringLength = Math.max(longestSubstringLength, (end - start) + 1);
+            map.put(ch[end], end);
         }
-
         return longestSubstringLength;
     }
 }
