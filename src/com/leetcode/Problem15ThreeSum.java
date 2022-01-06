@@ -1,7 +1,6 @@
 package com.leetcode;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Problem15ThreeSum {
 
